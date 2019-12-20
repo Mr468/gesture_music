@@ -7,17 +7,12 @@
 import os
 import sys
 
-from src.SpeechView import SpeechView
+from src.speech.SpeechView import SpeechView
 
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 
 from PyQt5 import QtWidgets
-
-
-class Main(object):
-    pass
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app

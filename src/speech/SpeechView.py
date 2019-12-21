@@ -4,10 +4,10 @@
 # @contact: houz_work@163.com
 # @time: 2019/11/24 15:16
 # @desc:语音界面
-
+from PyQt5 import QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QGridLayout, QApplication
 
 from layout.ui_speech import Ui_MainWindow
 from src.face.FaceView import FaceView
@@ -23,9 +23,15 @@ class SpeechView(Ui_MainWindow, BaseWindow):
     Api_key = 'VUluy7HdSdLETs3tRyAu4fzf'
     Secret_key = 'oeodkVzGnQGSz6VLev1WqvOajCuAbFnu'
 
-    def __init__(self, main_window):
+    def __init__(self, main_window, base_window):
+        """
+        初始化语音界面
+        :param main_window: 自己的主窗口
+        :param base_window: 最外层的基窗口
+        """
         super().__init__(main_window)
         self.setupUi(main_window)
+        self.base_window = base_window
         self.mainWindow = main_window
         self.init_view()
         self.if_record = True
@@ -34,6 +40,7 @@ class SpeechView(Ui_MainWindow, BaseWindow):
         self.thread = SpeechThread(self)
         self.thread.start()
         self.thread.trigger.connect(self.on_work_finished)
+        # self.add_hidden()
 
     def init_view(self):
         """
@@ -87,6 +94,13 @@ class SpeechView(Ui_MainWindow, BaseWindow):
         form.show()
         form.exec_()
 
+    def start_face(self):
+        """
+        打开人脸识别界面
+        """
+        face_view = FaceView()
+        self.base_window.start_child_window(self.mainWindow, face_view)
+
     def start_synthesis(self):
         """
         语音合成
@@ -103,7 +117,8 @@ class SpeechView(Ui_MainWindow, BaseWindow):
 
     def on_synthesis_finished(self, result):
         print('语音合成完毕')
-        self.start_new_ui()
+        # self.start_new_ui()
+        self.start_face()
 
 
 class SpeechThread(QThread):

@@ -8,7 +8,7 @@ import os
 import sys
 import cgitb
 
-from src.speech.SpeechView import SpeechView
+from src.base.MainWindow import MainWindow
 
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
@@ -20,7 +20,6 @@ cgitb.enable(format='text')
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app
     mainWindow = QtWidgets.QMainWindow()  # 创建一个QMainWindow，用来装载你需要的各种组件、控件
-    ui = SpeechView(mainWindow)  # ui是UiForm()类的实例化
+    ui = MainWindow(mainWindow)  # ui是UiForm()类的实例化
     mainWindow.show()  # 执行QMainWindow的show()方法，显示这个QMainWindow
-    print('窗口显示')
     sys.exit(app.exec_())  # 使用exit()或者点击关闭按钮退出QApplication

@@ -29,7 +29,7 @@ class Record(object):
         FORMAT = pyaudio.paInt16
         CHANNELS = 1  # 声道数
         RATE = 16000  # 采样率
-        RECORD_SECONDS = 2
+        RECORD_SECONDS = 3
         WAVE_OUTPUT_FILENAME = filepath
         p = pyaudio.PyAudio()
 
@@ -44,7 +44,7 @@ class Record(object):
         wf.setsampwidth(p.get_sample_size(FORMAT))
         wf.setframerate(RATE)
 
-        print("*" * 10, "开始录音：请在2秒内输入语音")
+        print("*" * 10, "开始录音：请在3秒内输入语音")
 
         for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
             data = stream.read(CHUNK)
